@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-#include <chrono>
+#include "cus_string.h"
 
 /* Determines the length of the string */
 int strlen(char* string)
@@ -82,31 +83,4 @@ char* substring(char* string, int start, int end)
    }
    *(substring + len - 1) = '\0';
    return substring;
-}
-
-void function()
-{
-   char string[] = "bigteststringthatmightcontainthings";
-   char* ptr = string;
-   char substring1[] = "might";
-   
-   printf("Found - %d\n", strcontains(string, substring1));
-   printf("Located at - %d\n", strfind(string, substring1));
-   
-   char* substring2 = substring(string, strfind(string, substring1), strlen(string));
-   char* substring3 = substring(string, 0, strfind(string, substring1) + 1);
-
-   printf("Substring: \"%s\"\n", substring2);
-   printf("Substring: \"%s\"\n", substring3);
-}
-
-int main()
-{
-   auto start = std::chrono::high_resolution_clock::now();
-   function();
-   auto end = std::chrono::high_resolution_clock::now();
-   
-   auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-   printf("Process took %d microseconds.", duration);
-   return 0;
 }
