@@ -18,6 +18,21 @@ namespace cs {
       return length;
    }
 
+   /* Returns a copy of a given string */
+   char* strcopy(char* string)
+   {
+      size_t size = strlen(string);
+      char* copy = (char*)malloc(size);
+      while (*string)
+      {
+         *copy = *string;
+         copy++;
+         string++;
+      }
+      *(copy) = '\0';
+      return (copy - size);
+   }
+
    /* Determines if the string contains the substring */
    bool strcontains(char* string, char* substring)
    {
@@ -82,7 +97,7 @@ namespace cs {
          string++;
          i++;
       }
-      *(substring + len - 1) = '\0';
+      *(substring + len) = '\0';
       return substring;
    }
 
@@ -104,5 +119,23 @@ namespace cs {
       *(catstring + i) = '\0';
 
       return catstring;
+   }
+
+   
+   const int TOUPPERCASE = -32;
+
+   /* converts given string to uppercase */
+   char* strupp(char* string)
+   {
+      char* upp = strcopy(string);
+      while (*upp)
+      {
+         if ((char)*upp >= 'a' && (char)*upp <= 'z')
+         {
+            *upp += TOUPPERCASE;
+         }
+         upp++;
+      }
+      return upp - strlen(string);
    }
 }

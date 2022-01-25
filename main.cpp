@@ -7,38 +7,48 @@
 
 void test_function()
 {
-   /*
-   printf("Enter a big string: ");
-   char string[100];
-   gets_s(string);
-   
-   printf("Enter a possible substring: ");
-   char substring1[100];
-   gets_s(substring1);
-   */
+   // Copy a string
+   char stringToCopy[] = "Test string to be copied '%#$";
+   char* copiedString = cs::strcopy(stringToCopy);
+   printf("Original: %s\nCopy: %s\n", stringToCopy, copiedString);
 
+   // Substring
    char string[] = "bigstringthatmightcontainsomething";
    char substring1[] = "might";
-
    printf("Attempting to find substring \"%s\" in \"%s\"\n", substring1, string);
    if (cs::strcontains(string, substring1))
-   {
       printf("Found substring located at - %d\n", cs::strfind(string, substring1));
-   }
    else
-   {
       printf("Substring not found.\n");
-   }
 
    char bigString[] = "I'm a big string seperated in two halves";
    char divider[] = "seperated";
-   char* substring2 = cs::substring(bigString, cs::strfind(bigString, divider), cs::strlen(bigString));
-   char* substring3 = cs::substring(bigString, 0, cs::strfind(bigString, divider) + 1);
-   char* repairedstring = cs::strcat(substring3, substring2);
+   char stringTest[] = "word";
 
-   printf("Half 1     : \"%s\"\n", substring3);
-   printf("Half 2     : \"%s\"\n", substring2);
-   printf("Full string: \"%s\"\n", repairedstring);
+   // Testing string lengths
+   int strLength2 = cs::strlen(stringTest); // 4
+   printf("Length 4  : %d \n", strLength2);
+   int strlength = cs::strlen(bigString); // 40
+   printf("Length 40 : %d \n", strlength);
+
+
+   // Substring / strfind testing
+   char* half1 = cs::substring(bigString, 0, cs::strfind(bigString, divider));
+   char* half2 = cs::substring(bigString, cs::strfind(bigString, divider), cs::strlen(bigString));
+   char* repairedstring = cs::strcat(half1, half2);
+
+   printf("Half 1     : \"%s\"\n", half1);
+   printf("Half 2     : \"%s\"\n", half2);
+   printf("Full string: \"%s\"\n\n", repairedstring);
+
+   // Uppercase converter
+   char lowercase[] = "here's a string";
+   char* uppercase = cs::strupp(lowercase);
+
+   printf("Lowercase string: %s\n", lowercase);
+   printf("Uppercase string: %s\n", uppercase);
+
+
 }
 
 void my_string_functions()
