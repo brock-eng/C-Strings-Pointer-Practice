@@ -34,30 +34,59 @@ namespace cs {
    }
 
    /* Returns the index of substring or -1 if not found */
-   int strfind(char* string, char* substring)
+   /* https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm */
+   int strfind(char* haystack, char* needle)
    {
-      char* ptr = string;
-      char* ptrss = substring;
+      char* ptr = haystack;
+      char* ptrss = needle;
       char* setpoint;
 
       int index = 0;
+      int skip = 0;
 
+      /* While ptr is not '\0'
+         (end of string)
+         */
       while (*ptr)
       {
+         /* Check if haystack char matches first char of the needle */
          if (*ptr == *ptrss)
          {
+            /* Compare each subsequent character until either nonmatch or
+               end of either string.  
+               End of haystack -> return not_found
+               End of needle   -> return found index
+               nonmatch        -> continue searching
+               */
             setpoint = ptr;
-            while (*ptr && *ptr == *ptrss)
+            while (*ptr == *ptrss)
             {
                ptrss++;
                ptr++;
                if (!*ptrss) return index;
+               if (!*ptr) return -1;
             }
-            ptrss = substring;
-            ptr = setpoint;
+            /* When a nonmatch occurs, move the 
+               haystack pointer until the nonmatched char occurs.
+               We can skip the next n-amount of indices since we 
+               are guaranteed to not find a match before that point.
+               */
+            while (*ptr != *ptrss)
+            {
+               ptr++;
+               skip++;
+               if (!*ptr) return -1;
+            }
+            ptr = setpoint + skip;
+            ptrss = needle;
+            index += skip;
          }
-         ptr++;
-         index++;
+         else
+         {
+            ptr++;
+            index++;
+         }
+         skip = 0;
       }
       return -1;
    }

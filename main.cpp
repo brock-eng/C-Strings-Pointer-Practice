@@ -13,8 +13,8 @@ void test_function()
    printf("Original: %s\nCopy: %s\n", stringToCopy, copiedString);
 
    // Substring
-   char string[] = "mississippi";
-   char substring1[] = "issip";
+   char string[] = "xxx";
+   char substring1[] = "aaa";
    printf("Attempting to find substring \"%s\" in \"%s\"\n", substring1, string);
    if (cs::strcontains(string, substring1))
       printf("Found substring located at - %d\n", cs::strfind(string, substring1));
@@ -53,14 +53,23 @@ void test_function()
 
 void my_string_functions()
 {
-   char string[] = "bigstringthatmightcontainsomething";
-   char substring1[] = "might";
+   int numChars = 1000000;
+   char* bigstring = (char*)malloc(numChars * sizeof(char));
+   for (int i = 0; i < numChars - 1; i++)
+   {
+      if (i == numChars / 2) bigstring[i] = 'x';
+      else
+         bigstring[i] = 'a';
+   }
+   bigstring[numChars - 1] = 'b';
+
+   char substring1[] = "x";
    
    int i = 0;
    int foundIndex = 0;
-   while (i < 100000)
+   while (i < 100)
    {
-      foundIndex = cs::strfind(string, substring1);
+      foundIndex = cs::strfind(bigstring, substring1);
       i++;
    }
 }
@@ -68,19 +77,28 @@ void my_string_functions()
 // GNU C
 void stdlib_functions()
 {
-   char string[] = "bigstringthatmightcontainsomething";
-   char substring1[] = "might";
+   int numChars = 1000000;
+   char* bigstring = (char*)malloc(numChars * sizeof(char));
+   for (int i = 0; i < numChars - 1; i++)
+   {
+      if (i == numChars / 2) bigstring[i] = 'x';
+      else
+         bigstring[i] = 'a';
+   }
+   bigstring[numChars - 1] = 'b';
+
+   char substring1[] = "x";
 
    int i = 0;
    int foundIndex = 0;
-   while (i < 100000)
+   while (i < 100)
    {
-      char* ptr = strstr(string, substring1);
+      char* ptr = strstr(bigstring, substring1);
       
       /* This additional step finds the ss index by
          subtracting the starting address from the found
          address. */
-      foundIndex = ptr - string;
+      foundIndex = ptr - bigstring;
 
       i++;
    }
