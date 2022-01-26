@@ -13,8 +13,8 @@ void test_function()
    printf("Original: %s\nCopy: %s\n", stringToCopy, copiedString);
 
    // Substring
-   char string[] = "bigstringthatmightcontainsomething";
-   char substring1[] = "might";
+   char string[] = "mississippi";
+   char substring1[] = "issip";
    printf("Attempting to find substring \"%s\" in \"%s\"\n", substring1, string);
    if (cs::strcontains(string, substring1))
       printf("Found substring located at - %d\n", cs::strfind(string, substring1));

@@ -33,35 +33,12 @@ namespace cs {
       return (copy - size);
    }
 
-   /* Determines if the string contains the substring */
-   bool strcontains(char* string, char* substring)
-   {
-      char* ptr = string;
-      char* ptrss = substring;
-
-      while (*ptr)
-      {
-         if (*ptr == *ptrss)
-         {
-            while (*ptr && *ptr == *ptrss)
-            {
-               ptrss++;
-               ptr++;
-               if (!*ptrss) return true;
-            }
-            ptrss = substring;
-            ptr--;
-         }
-         ptr++;
-      }
-      return false;
-   }
-
    /* Returns the index of substring or -1 if not found */
    int strfind(char* string, char* substring)
    {
       char* ptr = string;
       char* ptrss = substring;
+      char* setpoint;
 
       int index = 0;
 
@@ -69,6 +46,7 @@ namespace cs {
       {
          if (*ptr == *ptrss)
          {
+            setpoint = ptr;
             while (*ptr && *ptr == *ptrss)
             {
                ptrss++;
@@ -76,12 +54,18 @@ namespace cs {
                if (!*ptrss) return index;
             }
             ptrss = substring;
-            ptr--;
+            ptr = setpoint;
          }
          ptr++;
          index++;
       }
       return -1;
+   }
+
+   /* Determines if the string contains the substring */
+   bool strcontains(char* string, char* substring)
+   {
+      return strfind(string, substring) > -1 ? true : false;
    }
 
    /* Returns the substring between starting and ending indices */
@@ -137,5 +121,11 @@ namespace cs {
          upp++;
       }
       return upp - strlen(string);
+   }
+
+   char* strrep(char* string, char* text, char* replacement, int startingIndex = 0, int endingIndex = -1)
+   {
+      char* rv = new char('n');
+      return rv;
    }
 }
